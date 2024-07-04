@@ -1,0 +1,49 @@
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: ms-prometheus-prometheus-1
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./alerts.yml:/etc/prometheus/alerts.yml
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana
+    container_name: ms-prometheus-grafana-1
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+
+  alertmanager:
+    image: prom/alertmanager
+    container_name: ms-prometheus-alertmanager-1
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    networks:
+      - monitoring
+
+  blackbox_exporter:
+    image: prom/blackbox-exporter
+    container_name: ms-prometheus-blackbox_exporter-1
+    ports:
+      - "9115:9115"
+    networks:
+      - monitoring
+
+  node_exporter:
+    image: prom/node-exporter
+    container_name: ms-prometheus-node_exporter-1
+    ports:
+      - "9100:9100"
+    networks:
+      - monitoring
+
+networks:
+  monitoring:

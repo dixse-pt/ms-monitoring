@@ -1,0 +1,31 @@
+groups:
+  - name: alert.rules
+    rules:
+      - alert: HTTPStatusError
+        expr: |
+          (probe_http_status_code != 200) and (probe_http_status_code != 404)
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Code de réponse HTTP : {{ $value }} pour l'URL {{ $labels.instance }}."
+          description: "{{ $labels.instance }} du job {{ $labels.job }} est hors service avec un code de réponse HTTP différent de 200 et 404."
+
+      - alert: HTTP404Error
+        expr: |
+          (probe_http_status_code == 404) and (probe_http_status_code != 200)
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Erreur 404 détectée"
+          description: "Le site web {{ $labels.instance }} a renvoyé un code de statut 404."
+
+      - alert: HTTP5xxErrors
+        expr: probe_http_status_code >= 500
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Erreur serveur détectée"
+          description: "Le site web {{ $labels.instance }} a renvoyé un code de statut 5xx, indiquant une erreur interne du serveur."
