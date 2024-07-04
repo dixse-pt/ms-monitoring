@@ -28,7 +28,6 @@ Pour utiliser cette configuration localement :
         
         ```
         docker-compose up -d
-        
         ```
         
 4. **Surveillance** :
