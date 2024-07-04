@@ -27,7 +27,6 @@ Pour utiliser cette configuration localement :
     - Lancez l'ensemble du système avec Docker Compose :
         
         ```
-        Copier le code
         docker-compose up -d
         
         ```
@@ -42,5 +41,3 @@ Pour utiliser cette configuration localement :
 ## Contribuer
 
 Les contributions sont les bienvenues ! Pour toute amélioration ou correction, veuillez soumettre une pull request et nous examinerons votre proposition.
-
----
